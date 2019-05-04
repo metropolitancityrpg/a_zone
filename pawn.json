@@ -1,0 +1,7 @@
+{
+	"user": "GledersonDomingues",
+	"repo": "a_zone",
+	"dependencies": [
+		"sampctl/samp-stdlib"
+	]
+}
