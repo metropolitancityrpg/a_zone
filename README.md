@@ -1,6 +1,6 @@
 # a_zone
 
-[![sampctl](https://shields.southcla.ws/badge/sampctl-a_zone-2f2f2f.svg?style=for-the-badge)](https://github.com/GledersonDomingues/a_zone)
+[![sampctl](https://img.shields.io/badge/sampctl-zone-2f2f2f.svg?style=for-the-badge)](https://github.com/metropolitancityrpg/a_zone)
 
 <!--
 Short description of your library, why it's useful, some examples, pictures or
