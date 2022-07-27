@@ -6,9 +6,9 @@
 #include <a_samp>
 
 #define MAX_ZONE_NAME 28
-
-//native GetPlayer2DZone(playerid, zone[], len);
-//native GetPlayer3DZone(playerid, zone[], len);
+// native GetZoneName(Float:x, Float:y, zone[], len = sizeof(zone));
+//native GetPlayer2DZone(playerid, zone[], len = sizeof(zone));
+//native GetPlayer3DZone(playerid, zone[], len = sizeof(zone));
 //native IsPlayerInZone(playerid, zone[]);
 
 enum SAZONE_MAIN
@@ -388,20 +388,6 @@ static const gSAZones[][SAZONE_MAIN] =
 	{"Whetstone",                   {-2997.40,-2892.90,-242.90,-1213.90,-1115.50,900.00}}
 };
 
-stock GetPlayer2DZone(playerid, zone[], len)
-{
-	new Float:x, Float:y, Float:z;
-	GetPlayerPos(playerid, x, y, z);
- 	for(new i = 0; i != sizeof(gSAZones); i++ )
- 	{
-		if(x >= gSAZones[i][SAZONE_AREA][0] && x <= gSAZones[i][SAZONE_AREA][3] && y >= gSAZones[i][SAZONE_AREA][1] && y <= gSAZones[i][SAZONE_AREA][4])
-		{
-		    return format(zone, len, gSAZones[i][SAZONE_NAME], 0);
-		}
-	}
-	return 0;
-}
-
 stock GetZoneName(Float:x, Float:y, zone[], len=sizeof(zone))
 {
  	for(new i = 0; i != sizeof(gSAZones); i++ )
@@ -414,15 +400,33 @@ stock GetZoneName(Float:x, Float:y, zone[], len=sizeof(zone))
 	return 0;
 }
 
-stock GetPlayer3DZone(playerid, zone[], len)
+stock GetPlayer2DZone(playerid, zone[], len = sizeof(zone))
 {
+	if ( !IsPlayerConnected(playerid))return 0;
+
 	new Float:x, Float:y, Float:z;
 	GetPlayerPos(playerid, x, y, z);
  	for(new i = 0; i != sizeof(gSAZones); i++ )
  	{
-		if(x >= gSAZones[i][SAZONE_AREA][0] && x <= gSAZones[i][SAZONE_AREA][3] && y >= gSAZones[i][SAZONE_AREA][1] && y <= gSAZones[i][SAZONE_AREA][4] && z >= gSAZones[i][SAZONE_AREA][2] && z <= gSAZones[i][SAZONE_AREA][5])
-		{
-		    return format(zone, len, gSAZones[i][SAZONE_NAME], 0);
+		if(x >= gSAZones[i][SAZONE_AREA][0] && x <= gSAZones[i][SAZONE_AREA][3] && y >= gSAZones[i][SAZONE_AREA][1] && y <= gSAZones[i][SAZONE_AREA][4]) {
+		    format(zone, len, gSAZones[i][SAZONE_NAME], 0);
+			return 1;
+		}
+	}
+	return 0;
+}
+
+stock GetPlayer3DZone(playerid, zone[], len = sizeof(zone))
+{
+	if ( !IsPlayerConnected(playerid))return 0;
+
+	new Float:x, Float:y, Float:z;
+	GetPlayerPos(playerid, x, y, z);
+ 	for(new i = 0; i != sizeof(gSAZones); i++ )
+ 	{
+		if(x >= gSAZones[i][SAZONE_AREA][0] && x <= gSAZones[i][SAZONE_AREA][3] && y >= gSAZones[i][SAZONE_AREA][1] && y <= gSAZones[i][SAZONE_AREA][4] && z >= gSAZones[i][SAZONE_AREA][2] && z <= gSAZones[i][SAZONE_AREA][5]) {
+		    format(zone, len, gSAZones[i][SAZONE_NAME], 0);
+			return 1;
 		}
 	}
 	return 0;
@@ -430,10 +434,12 @@ stock GetPlayer3DZone(playerid, zone[], len)
 
 stock IsPlayerInZone(playerid, zone[])
 {
+	if ( !IsPlayerConnected(playerid))return 0;
+
 	new TmpZone[MAX_ZONE_NAME];
 	GetPlayer3DZone(playerid, TmpZone, sizeof(TmpZone));
-	for(new i = 0; i != sizeof(gSAZones); i++)
-	{
+
+	for(new i = 0; i != sizeof(gSAZones); i++) {
 		if(strfind(TmpZone, zone, true) != -1)
 			return 1;
 	}
