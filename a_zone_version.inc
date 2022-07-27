@@ -4,4 +4,4 @@
 
 #define A_ZONE_VERSION_MAJOR (0)
 #define A_ZONE_VERSION_MINOR (1)
-#define A_ZONE_VERSION_PATCH (2)
+#define A_ZONE_VERSION_PATCH (3)
